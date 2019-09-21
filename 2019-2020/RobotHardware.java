@@ -12,29 +12,27 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class RobotHardware {
     //Declaring the specific hardware for our robot
     //The DC Motors:
-    public static final DcMotor rightMotor = null;
-    public static final DcMotor leftMotor = null;
+    public DcMotor rightMotor = null;
+    public DcMotor leftMotor = null;
     //Add more DC Motors when you use them
 
     //The Servos
-    public static final Servo servoOne = null;
-    public static final Servo servoTwo = null;
+    public Servo servoOne = null;
+    public Servo servoTwo = null;
 
     //The Color Sensors
-    public static final ColorSensor colorSensor = null;
+    public ColorSensor colorSensor = null;
 
     //The Gyro Sensor
-    public static final GyroSensor gyroSensor = null;
+    public GyroSensor gyroSensor = null;
 
     //Distance Sensor
-    public static final DistanceSensor distanceSensor = null;
+    public DistanceSensor distanceSensor = null;
 
     public static final double SERVO_INIT_POS = 0.5;//This is the initial position of a servo and what you will send it back to
 
     HardwareMap hardwareMap;
 
-    public RobotHardware(){
-    }
 
     public void init(HardwareMap aHardwareMap) {
         hardwareMap = aHardwareMap;
