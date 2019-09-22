@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Mobama", group="TeleOp")
 
-public class DriverController1 extends OpMode{
+public class DriverControlled extends OpMode{
 
     //Declare OpMode members.
     RobotHardware robot = new RobotHardware();
