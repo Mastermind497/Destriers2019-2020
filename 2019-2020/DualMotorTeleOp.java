@@ -1,8 +1,7 @@
-/* 
- * The Driver-Controlled code for the Destriers
+/*
+ * The Driver-Controlled code for the Destriers/FIRE Team
  * Created by Team Member Shourya Bansal
  */
-
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -26,10 +25,14 @@ public class DualMotorTeleOp extends OpMode {
         Robot.init(hardwareMap);
         telemetry.addData("Status", "TeleOp has been Initialized");
     }
+    public void init_loop() {
+        telemetry.addData("Status", "Waiting for Start");
+    }
 
     //runs only once when the driver hits play
     public void start() {
         runtime.reset();
+        telemetry.addData("Status", "Driver Controlled Started");
     }
 
     //loops after TeleOp Starts
@@ -80,6 +83,6 @@ public class DualMotorTeleOp extends OpMode {
 
         Robot.rightMotor.setPower(-G1leftStickX-G1leftStickY);
         Robot.leftMotor.setPower(-G1leftStickX+G1leftStickY);
-        //Add more as more things are made; some sensors and extra motors have already been initialized. 
+        //Add more as more things are made; some sensors and extra motors have already been initialized.
     }
 }
