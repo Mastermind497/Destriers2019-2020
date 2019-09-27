@@ -1,5 +1,5 @@
 /*
- * The Robot Hardware code for the Destriers/FIRE Team
+ * The Robot Hardware code for the Destriers
  * Created by Team Member Shourya Bansal
  */
 package org.firstinspires.ftc.teamcode;
