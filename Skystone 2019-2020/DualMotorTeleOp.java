@@ -1,15 +1,13 @@
 /*
- * The Driver-Controlled code for the Destriers
+ * The Driver-Controlled code for the Destriers/FIRE Team
  * Created by Team Member Shourya Bansal
  */
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.robot.Robot;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import static org.firstinspires.ftc.teamcode.RobotHardware.*;
 
 @TeleOp(name="Dual Motor TeleOp", group="TeleOp")
 @Disabled
@@ -81,8 +79,32 @@ public class DualMotorTeleOp extends OpMode {
             boolean G2dpadLeft = gamepad2.dpad_left;
             boolean G2dpadRight = gamepad2.dpad_right;
 
-        Robot.rightMotor.setPower(-G1leftStickX-G1leftStickY);
-        Robot.leftMotor.setPower(-G1leftStickX+G1leftStickY);
+        Robot.frontRightMotor.setPower(-G1leftStickX-G1leftStickY);//replace left stick y with right stick y if you want more control
+        Robot.frontLeftMotor.setPower(-G1leftStickX+G1leftStickY);//replace left stick y with right stick y if you want more control
+
+        /*
+        //For One Controller
+        Robot.clawMotor.setPower(G1rightStickX)
+
+        if (G1rightBumper) {
+            Robot.clawServo.setPosition(SERVO_OPEN_POS);
+        }
+        else if (G1leftBumper) {
+            Robot.clawServo.setPosition(SERVO_INIT_POS);
+        }
+        */
+
+        /*
+        //For Two Controllers:
+        Robot.clawMotor.setPower(G2leftStickX);
+        if (G2rightBumper) {
+            Robot.clawServo.setPosition(SERVO_OPEN_POS);
+        }
+        else if (G2leftBumper) {
+            Robot.clawServo.setPosition(SERVO_INIT_POS);
+        }
+        */
+
         //Add more as more things are made; some sensors and extra motors have already been initialized.
     }
 }
