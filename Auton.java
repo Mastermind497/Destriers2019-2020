@@ -1,8 +1,14 @@
+/*
+ * The Auton code for the Destriers
+ * Created by Team Member Aryan Bansal
+ */
+
 package org.firstinspires.ftc.robotcontroller.external.sam ples;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous ;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMo de;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 @Autonomous(name="Auton", group="Auton")
 
@@ -36,7 +42,6 @@ public class Auton extends OpMode {
         waitForStart();
 
 // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
-
 // Step 1: Drive forward for 3 seconds
 
 
@@ -111,27 +116,33 @@ public class Auton extends OpMode {
             }
             runtime.reset();
 
-            while (opModeIsActive() && (runtime.seconds() < 1)) {
+        while (opModeIsActive() && (runtime.seconds() < 1)) {
+            frontLeftMotor.setPower(0.8);
+            backLeftMotor.setPower(0.8);
+            frontRightMotor.setPower(0.8);
+            backRightMotor.setPower(0.8);
+        }
+        runtime.reset();
+
+            color_sensor = hardwareMap.colorSensor.get("color");
+            color_sensor.enableLed(true);
+
+            int red = color_sensor.red();
+            int blue = color_sensor.blue();
+            int green = color_sensor.green();
+
+            if (blue > red && blue > green && blue > 100) {
+                frontLeftMotor.setPower(0);
+                backLeftMotor.setPower(0);
+                frontRightMotor.setPower(0);
+                backRightMotor.setPower(0);
+            }
+
+            else {
                 frontLeftMotor.setPower(0.8);
                 backLeftMotor.setPower(0.8);
-                frontRightMotor.setPower(0.8);
-                backRightMotor.setPower(0.8);
+                frontRightMotor.setPower(-0.8);
+                backRightMotor.setPower(-0.8);
             }
-            runtime.reset();
-
-
-
-            while (opModeIsActive() && (runtime.seconds() < 6)) {
-                frontLeftMotor.setPower(-0.8);
-                backLeftMotor.setPower(-0.8);
-                frontRightMotor.setPower(0.8);
-                backRightMotor.setPower(0.8);
-            }
-
-        frontLeftMotor.setPower(0);
-        backLeftMotor.setPower(0);
-        frontRightMotor.setPower(0);
-        backRightMotor.setPower(0);
-        }
     }
 }

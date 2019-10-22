@@ -1,6 +1,6 @@
 /*
- * The Driver-Controlled code for the Destriers
- * Created by Team Member Shourya Bansal
+ * The Meccanum Teleop code for the Destriers
+ * Created by Team Member Aryan Bansal
  */
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;

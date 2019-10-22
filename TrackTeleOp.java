@@ -1,3 +1,8 @@
+/*
+ * The Track Teleop code for the Destriers
+ * Created by Team Member Aryan Bansal
+ */
+
 */
         package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -76,8 +81,10 @@ public class TrackTeleOp extends OpMode {
         boolean G2dpadLeft = gamepad2.dpad_left;
         boolean G2dpadRight = gamepad2.dpad_right;
 
-        Robot.frontRightMotor.setPower(-G1leftStickX-G1leftStickY);//replace left stick y with right stick y if you want more control
+        Robot.frontRightMotor.setPower(G1leftStickX-G1leftStickY);//replace left stick y with right stick y if you want more control
         Robot.frontLeftMotor.setPower(-G1leftStickX+G1leftStickY);//replace left stick y with right stick y if you want more control
+        Robot.backRightMotor.setPower(G1leftStickX-G1leftStickY);
+        Robot.backLeftMotor.setPower(-G1leftStickX+G1leftStickY);
 
         /*
         //For One Controller
