@@ -144,11 +144,11 @@ public class Auton extends OpMode {
             frontRightMotor.setPower(0);
             backRightMotor.setPower(0);
 
-            /*int red = color_sensor.red();
+            int red = color_sensor.red();
             int blue = color_sensor.blue();
             int green = color_sensor.green();
 
-            if (blue > red && blue > green && blue > 100) {
+            if (red > blue && red > green && red > 100) {
                 frontLeftMotor.setPower(0);
                 backLeftMotor.setPower(0);
                 frontRightMotor.setPower(0);
