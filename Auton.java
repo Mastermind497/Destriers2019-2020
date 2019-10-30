@@ -1,6 +1,6 @@
 /*
  * The Auton code for the Destriers
- * Created by Team Member Aryan Bansal
+ * Created by Team Members Aryan Bansal and Joshua Faber
  */
 
 package org.firstinspires.ftc.robotcontroller.external.sam ples;
@@ -124,10 +124,27 @@ public class Auton extends OpMode {
         }
         runtime.reset();
 
+
             color_sensor = hardwareMap.colorSensor.get("color");
             color_sensor.enableLed(true);
 
-            int red = color_sensor.red();
+
+            while (color_sensor.green()<100 || color_sensor.red()<100) {
+                telemetry.addData(color_sensor.red());
+                telemetry.addData(color_sensor.blue());
+                telemetry.addData(color_sensor.green());
+                frontLeftMotor.setPower(0.8);
+                backLeftMotor.setPower(0.8);
+                frontRightMotor.setPower(-0.8);
+                backRightMotor.setPower(-0.8);
+             }
+
+            frontLeftMotor.setPower(0);
+            backLeftMotor.setPower(0);
+            frontRightMotor.setPower(0);
+            backRightMotor.setPower(0);
+
+            /*int red = color_sensor.red();
             int blue = color_sensor.blue();
             int green = color_sensor.green();
 
@@ -142,7 +159,7 @@ public class Auton extends OpMode {
                 frontLeftMotor.setPower(0.8);
                 backLeftMotor.setPower(0.8);
                 frontRightMotor.setPower(-0.8);
-                backRightMotor.setPower(-0.8);
+                backRightMotor.setPower(-0.8);*/
             }
     }
 }
