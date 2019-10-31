@@ -15,6 +15,8 @@ public class RobotHardware {
     //The DC Motors:
     public DcMotor frontRightMotor;
     public DcMotor frontLeftMotor;
+    public DcMotor backRightMotor;
+    public DcMotor backLeftMotor;
 
     public DcMotor clawMotor;
     //Add more DC Motors when you use them
@@ -44,11 +46,16 @@ public class RobotHardware {
         //Initializing Motors
         frontLeftMotor = hardwareMap.get(DcMotor.class, "Front Left Motor");
         frontRightMotor = hardwareMap.get(DcMotor.class, "Front Right Motor");
+        backLeftMotor = hardwareMap.get(DcMotor.class, "Back Left Motor");
+        backRightMotor = hardwareMap.get(DcMotor.class, "Back Right Motor");
         clawMotor = hardwareMap.get(DcMotor.class, "Claw Motor");
 
         //Set Directions
         frontLeftMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         frontRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        backLeftMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        backRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+
         clawMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
 
 
@@ -58,13 +65,17 @@ public class RobotHardware {
         clawMotor.setPower(0);
 
         //Run with Encoders. If we don't use Encoders, change "RUN_USING_ENCODERS" to "RUN_WITHOUT_ENCODERS"
-        frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //Brakes the Motors when the power is at Zero
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         clawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //Define and Initialize Servos
