@@ -13,24 +13,24 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class RobotHardware {
     //Declaring the specific hardware for our robot
     //The DC Motors:
-    public DcMotor frontRightMotor;
-    public DcMotor frontLeftMotor;
+    private DcMotor frontRightMotor;
+    private DcMotor frontLeftMotor;
 
-    public DcMotor clawMotor;
+    private DcMotor clawMotor;
     //Add more DC Motors when you use them
 
     //The Servos
-    public Servo clawServo;
-    public Servo servoTwo;
+    private Servo clawServo;
+    private Servo servoTwo;
 
     //The Color Sensors
-    public ColorSensor colorSensor;
+    private ColorSensor colorSensor;
 
     //The Gyro Sensor
-    public GyroSensor gyroSensor;
+    private GyroSensor gyroSensor;
 
     //Distance Sensor
-    public DistanceSensor distanceSensor;
+    private DistanceSensor distanceSensor;
 
     public static final double SERVO_INIT_POS = 0.5;//This is the initial position of a servo and what you will send it back to
     public static final double SERVO_OPEN_POS = 45;
