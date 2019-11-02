@@ -17,7 +17,7 @@ public class RobotHardware {
     private DcMotor frontLeftMotor;
     private DcMotor backRightMotor;
     private DcMotor backLeftMotor;
-
+  
     private DcMotor clawMotor;
     //Add more DC Motors when you use them
 
