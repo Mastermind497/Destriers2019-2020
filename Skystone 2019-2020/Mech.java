@@ -1,6 +1,6 @@
 /*
  * The Methods code for the Destriers
- * Created by Team Members Josh Faber
+ * Created by Team Member Joshua Faber
  */
 
 
@@ -11,8 +11,8 @@ import java.lang.Math;
 
 public class Mech {
 
-    //find the power for the front right and back left motors
-    public static double FRBL (double x, double y)
+    /*//find the power for the front right and back left motors
+    public static double FRBL(double x, double y)
         {
             double theta;
             try {
@@ -29,7 +29,7 @@ public class Mech {
             }
 
             theta=theta-(Math.PI/4);
-            double power=java.lang.Math.sin(theta);
+            double power=java.lang.Math.sin(theta)*0.8;
 
             return power;
         }
@@ -53,12 +53,32 @@ public class Mech {
         }
 
         theta=theta-(Math.PI/4);
-        double power=java.lang.Math.cos(theta);
+        double power=java.lang.Math.cos(theta) * 0.8;
 
         return power;
+    }*/
+
+
+    public static double[] Driving (double x, double y)
+    {
+        double firstBasis = x + y;
+        double secondBasis = y - x;
+        firstBasis = firstBasis/java.lang.Math.sqrt(2);
+        secondBasis = secondBasis/java.lang.Math.sqrt(2);
+        double [] drivingPower = {firstBasis, secondBasis};
+        return drivingPower;
     }
 
 
+    public static double[] Turning (int CW)
+    {
+        double leftPower = -CW;
+        double rightPower = CW;
+        double [] turningPower = {leftPower, rightPower};
+        return turningPower;
+    }
 }
+
+
 
 
