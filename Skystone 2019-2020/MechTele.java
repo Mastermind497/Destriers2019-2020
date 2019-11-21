@@ -1,8 +1,11 @@
-package org.firstinspires.ftc.teamcode;
 /*
  * The Driver-Controlled code for the Destriers
- * Created by Team Members Josh Faber
+ * Created by Team Member Joshua Faber
  */
+
+
+package org.firstinspires.ftc.teamcode;
+
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,9 +16,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-import static org.firstinspires.ftc.teamcode.Mech.FLBR;
-import static org.firstinspires.ftc.teamcode.Mech.FRBL;
-import static org.firstinspires.ftc.teamcode.RobotHardware.*; ///BEFORE UPLOADING MAKE SURE THIS ISNT A TYPO
+import static org.firstinspires.ftc.teamcode.Mech.Driving;
+/*import static org.firstinspires.ftc.teamcode.Mech.FLBR;
+import static org.firstinspires.ftc.teamcode.Mech.FRBL;*/
+import static org.firstinspires.ftc.teamcode.Mech.Turning;
+import static org.firstinspires.ftc.teamcode.RobotHardware.*;
 
 @TeleOp(name = "MechTele", group = "TeleOp")
 
@@ -36,7 +41,7 @@ public class MechTele extends OpMode {
         Robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Robot.backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        Robot.clawServo.setPosition(SERVO_INIT_POS);
+        //Robot.clawServo.setPosition(SERVO_INIT_POS);
     }
 
     public void init_loop() {
@@ -95,12 +100,54 @@ public class MechTele extends OpMode {
         boolean G2dpadLeft = gamepad2.dpad_left;
         boolean G2dpadRight = gamepad2.dpad_right;
 
-        double FRBLpow = FRBL(G1leftStickX, G1leftStickY);
+        /*double FRBLpow = FRBL(G1leftStickX, G1leftStickY);
         double FLBRpow = FLBR(G1leftStickX, G1leftStickY);
         Robot.frontRightMotor.setPower(FRBLpow);
         Robot.frontLeftMotor.setPower(FLBRpow);
         Robot.backRightMotor.setPower(FLBRpow);
-        Robot.backLeftMotor.setPower(FRBLpow);
+        Robot.backLeftMotor.setPower(FRBLpow);*/
+
+
+        if (Math.abs(G1leftStickX) > 0.1 || Math.abs(G1leftStickY) > 0.1) {
+            double[] power = Driving(G1leftStickX, G1leftStickY);
+            /*
+            double FLBR = Mech.FLBR(G1leftStickX, G1leftStickY);
+            double FRBL = Mech.FRBL(G1leftStickX, G1leftStickY);
+             */
+            double FLBR = power[0];
+            double FRBL = power[1];
+            Robot.frontLeftMotor.setPower(FLBR);
+            Robot.backRightMotor.setPower(FLBR);
+            Robot.frontRightMotor.setPower(FRBL);
+            Robot.backLeftMotor.setPower(FRBL);
+            telemetry.addData("Data FLBR", Double.toString(FLBR) + "/n");
+            telemetry.addData("Data FRBL", Double.toString(FRBL) + "/n");
+        } else if (G1rightStickX > 0.2) {
+            double[] turn = Turning(1);
+            double left = turn[0];
+            double right = turn [1];
+            Robot.frontLeftMotor.setPower(left);
+            Robot.backRightMotor.setPower(right);
+            Robot.frontRightMotor.setPower(right);
+            Robot.backLeftMotor.setPower(left);
+        } else if (G1rightStickX < -0.2) {
+            double[] turn = Turning(-1);
+            double left = turn[0];
+            double right = turn [1];
+            Robot.frontLeftMotor.setPower(left);
+            Robot.backRightMotor.setPower(right);
+            Robot.frontRightMotor.setPower(right);
+            Robot.backLeftMotor.setPower(left);
+        } else {
+            Robot.frontLeftMotor.setPower(0);
+            Robot.backRightMotor.setPower(0);
+            Robot.frontRightMotor.setPower(0);
+            Robot.backLeftMotor.setPower(0);
+        }
+
+
+
+
     }
 }
 
