@@ -8,15 +8,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class RobotGeneral {
     //Creates DcMotors
-    private DcMotor rightMotor;
-    private DcMotor leftMotor;
-    private DcMotor middleMotor;
-    private DcMotor elevator;
+    private DcMotor frontRightMotor;
+    private DcMotor frontLeftMotor;
+    private DcMotor backRightMotor;
+    private DcMotor backleftMotor;
 
     //Creates Corresponding Wheels
-    private Wheel rightWheel;
-    private Wheel leftWheel;
-    private Wheel middleWheel;
+    private Wheel frontRightWheel;
+    private Wheel frontLeftWheel;
+    private Wheel backRightWheel;
+    private Wheel backLeftWheel;
 
     //Creates Sensor to Direct
     private ColorSensor leftColor;
@@ -24,8 +25,6 @@ public class RobotGeneral {
 
     //Creates Servos which are being used
     private Servo clawServo;
-    private Servo rightPlateServo;
-    private Servo leftPlateServo;
 
     //Creates an array to store the robot's position after every movement
     double[] position = new double[2];
@@ -34,24 +33,29 @@ public class RobotGeneral {
     ElapsedTime runtime = new ElapsedTime();
 
     //Constructors to create the Robot
-    public RobotGeneral(DcMotor rightMotor, DcMotor leftMotor, DcMotor middleMotor, DcMotor elevator, Wheel rightWheel, Wheel leftWheel, Wheel middleWheel, ColorSensor leftColor, ColorSensor rightColor, Servo clawServo, Servo rightPlateServo, Servo leftPlateServo) {
-        this.rightMotor = rightMotor;
-        this.leftMotor = leftMotor;
-        this.middleMotor = middleMotor;
-        this.elevator = elevator;
-        this.rightWheel = rightWheel;
-        this.leftWheel = leftWheel;
-        this.middleWheel = middleWheel;
+
+
+    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor, Wheel frontRightWheel, Wheel frontLeftWheel, Wheel backRightWheel, Wheel backLeftWheel, ColorSensor leftColor, ColorSensor rightColor, Servo clawServo, double[] position, ElapsedTime runtime) {
+        this.frontRightMotor = frontRightMotor;
+        this.frontLeftMotor = frontLeftMotor;
+        this.backRightMotor = backRightMotor;
+        this.backleftMotor = backleftMotor;
+        this.frontRightWheel = frontRightWheel;
+        this.frontLeftWheel = frontLeftWheel;
+        this.backRightWheel = backRightWheel;
+        this.backLeftWheel = backLeftWheel;
         this.leftColor = leftColor;
         this.rightColor = rightColor;
         this.clawServo = clawServo;
-        this.rightPlateServo = rightPlateServo;
-        this.leftPlateServo = leftPlateServo;
+        this.position = position;
+        this.runtime = runtime;
     }
-    public RobotGeneral(DcMotor rightMotor, DcMotor leftMotor, DcMotor middleMotor) {
-        this.rightMotor = rightMotor;
-        this.leftMotor = leftMotor;
-        this.middleMotor = middleMotor;
+
+    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor) {
+        this.frontRightMotor = frontRightMotor;
+        this.frontLeftMotor = frontLeftMotor;
+        this.backRightMotor = backRightMotor;
+        this.backleftMotor = backleftMotor;
     }
 
     //Setters for Motor Power
@@ -59,8 +63,10 @@ public class RobotGeneral {
         motor.setPower(power);
     }
     public void setForwardPower(double power) {
-        rightMotor.setPower(power);
-        leftMotor.setPower(power);
+        frontRightMotor.setPower(power);
+        frontLeftMotor.setPower(power);
+        backRightMotor.setPower(power);
+        backleftMotor.setPower(power);
     }
     public void turn(double power, String directionInp) {
         String direction = direction(directionInp);
@@ -72,11 +78,15 @@ public class RobotGeneral {
                 setForwardPower(-power);
                 break;
             case "l":
-                leftMotor.setPower(power);
-                rightMotor.setPower(-power);
+                frontLeftMotor.setPower(power);
+                frontRightMotor.setPower(-power);
+                backleftMotor.setPower(power);
+                backRightMotor.setPower(-power);
             case "r":
-                leftMotor.setPower(-power);
-                rightMotor.setPower(power);
+                frontLeftMotor.setPower(-power);
+                frontRightMotor.setPower(power);
+                backleftMotor.setPower(-power);
+                backRightMotor.setPower(power);
             default:
                 break;
         }
@@ -84,11 +94,8 @@ public class RobotGeneral {
     public void turnRight(double power) {
         turn(power, "r");
     }
-    public void turnLeft(double power) {
+    public void turnLeft(double power, String direction) {
         turn(power, "l");
-    }
-    public void strafe(double power) {
-        middleMotor.setPower(power);
     }
 
     //Deciphering methods:
