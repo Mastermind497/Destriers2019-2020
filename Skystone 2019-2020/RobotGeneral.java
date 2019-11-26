@@ -11,7 +11,7 @@ public class RobotGeneral {
     private DcMotor frontRightMotor;
     private DcMotor frontLeftMotor;
     private DcMotor backRightMotor;
-    private DcMotor backleftMotor;
+    private DcMotor backLeftMotor;
 
     //Creates Corresponding Wheels
     private Wheel frontRightWheel;
@@ -35,11 +35,11 @@ public class RobotGeneral {
     //Constructors to create the Robot
 
 
-    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor, Wheel frontRightWheel, Wheel frontLeftWheel, Wheel backRightWheel, Wheel backLeftWheel, ColorSensor leftColor, ColorSensor rightColor, Servo clawServo, double[] position, ElapsedTime runtime) {
+    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor, Wheel frontRightWheel, Wheel frontLeftWheel, Wheel backRightWheel, Wheel backLeftWheel, ColorSensor leftColor, ColorSensor rightColor, Servo clawServo) {
         this.frontRightMotor = frontRightMotor;
         this.frontLeftMotor = frontLeftMotor;
         this.backRightMotor = backRightMotor;
-        this.backleftMotor = backleftMotor;
+        this.backLeftMotor = backleftMotor;
         this.frontRightWheel = frontRightWheel;
         this.frontLeftWheel = frontLeftWheel;
         this.backRightWheel = backRightWheel;
@@ -47,15 +47,13 @@ public class RobotGeneral {
         this.leftColor = leftColor;
         this.rightColor = rightColor;
         this.clawServo = clawServo;
-        this.position = position;
-        this.runtime = runtime;
     }
 
     public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor) {
         this.frontRightMotor = frontRightMotor;
         this.frontLeftMotor = frontLeftMotor;
         this.backRightMotor = backRightMotor;
-        this.backleftMotor = backleftMotor;
+        this.backLeftMotor = backleftMotor;
     }
 
     //Setters for Motor Power
@@ -66,54 +64,161 @@ public class RobotGeneral {
         frontRightMotor.setPower(power);
         frontLeftMotor.setPower(power);
         backRightMotor.setPower(power);
-        backleftMotor.setPower(power);
-    }
-    public void turn(double power, String directionInp) {
-        String direction = direction(directionInp);
-        switch (direction) {
-            case "f":
-                setForwardPower(power);
-                break;
-            case "b":
-                setForwardPower(-power);
-                break;
-            case "l":
-                frontLeftMotor.setPower(power);
-                frontRightMotor.setPower(-power);
-                backleftMotor.setPower(power);
-                backRightMotor.setPower(-power);
-            case "r":
-                frontLeftMotor.setPower(-power);
-                frontRightMotor.setPower(power);
-                backleftMotor.setPower(-power);
-                backRightMotor.setPower(power);
-            default:
-                break;
-        }
-    }
-    public void turnRight(double power) {
-        turn(power, "r");
-    }
-    public void turnLeft(double power, String direction) {
-        turn(power, "l");
+        backLeftMotor.setPower(power);
     }
 
-    //Deciphering methods:
-    public String direction(String directionInput) {
-        if (directionInput.equalsIgnoreCase("right") || directionInput.equalsIgnoreCase("r")){
-            return "r";
-        }
-        else if (directionInput.equalsIgnoreCase("left") || directionInput.equalsIgnoreCase("l")) {
-            return "l";
-        }
-        else if (directionInput.equalsIgnoreCase("back") || directionInput.equalsIgnoreCase("backwards")||directionInput.equalsIgnoreCase("b")) {
-            return "b";
-        }
-        else if (directionInput.equalsIgnoreCase("forward") || directionInput.equalsIgnoreCase("front") || directionInput.equalsIgnoreCase("f")) {
-            return "f";
-        }
-        else {
-            throw new Error ("Your direction couldn't be found. Please try a different direction which is already programmed or add a new case");
-        }
+    public void setMotorModeWithout() {
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+    public void setMotorModeToPosition() {
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+    public void stopAndResetEncoders() {
+        frontRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+    public void setMotorModeusing() {
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public double[] Driving (double x, double y)
+    {
+        double firstBasis = x + y;
+        double secondBasis = y - x;
+        firstBasis = firstBasis/java.lang.Math.sqrt(2);
+        secondBasis = secondBasis/java.lang.Math.sqrt(2);
+        double [] drivingPower = {firstBasis, secondBasis};
+        return drivingPower;
+    }
+
+
+
+
+    public void move (double x, double y)
+    {
+        double firstBasis = x + y;
+        double secondBasis = y - x;
+        firstBasis = firstBasis/java.lang.Math.sqrt(2);
+        secondBasis = secondBasis/java.lang.Math.sqrt(2);
+        set(firstBasis, secondBasis);
+
+    }
+
+    public void set (double FLBR, double FRBL)
+    {
+        frontLeftMotor.setPower(FLBR);
+        backRightMotor.setPower(FLBR);
+        frontRightMotor.setPower(FRBL);
+        backLeftMotor.setPower(FRBL);
+    }
+
+
+    public void set (double left, double right, String larry)
+    {
+        frontLeftMotor.setPower(left);
+        frontRightMotor.setPower(right);
+        backLeftMotor.setPower(left);
+        backRightMotor.setPower(right);
+    }
+
+
+
+    public double[] Turning (int CW, double power)
+    {
+        double leftPower = -CW * power;
+        double rightPower = CW * power;
+        double [] turningPower = {leftPower, rightPower};
+        return turningPower;
+    }
+
+
+
+    public void turn (int CW, double power)
+    {
+        double leftPower = -CW * power;
+        double rightPower = CW * power;
+        set(leftPower,rightPower,"turn");
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public HardwareMap hardwareMap;
+
+
+    public void init(HardwareMap aHardwareMap) {
+        hardwareMap = aHardwareMap;
+
+        //Initializing Motors
+        frontLeftMotor = hardwareMap.get(DcMotor.class, "Front Left Motor");
+        frontRightMotor = hardwareMap.get(DcMotor.class, "Front Right Motor");
+        backLeftMotor = hardwareMap.get(DcMotor.class, "Back Left Motor");
+        backRightMotor = hardwareMap.get(DcMotor.class, "Back Right Motor");
+        //clawMotor = hardwareMap.get(DcMotor.class, "Claw Motor");
+
+        //Set Directions
+        frontLeftMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        frontRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        backLeftMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        backRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+
+        //clawMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+
+
+        //Set Motor Power to Zero
+        frontLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        backLeftMotor.setPower(0);
+        backRightMotor.setPower(0);
+        //clawMotor.setPower(0);
+
+        //Run with Encoders. If we don't use Encoders, change "RUN_USING_ENCODERS" to "RUN_WITHOUT_ENCODERS"
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //Brakes the Motors when the power is at Zero
+        frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //clawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        //Define and Initialize Servos
+        //clawServo = hardwareMap.get(Servo.class, "Claw Servo");
+        //servoTwo = hardwareMap.get(Servo.class, "<Servo Two Name>");
+        //clawServo.setPosition(SERVO_INIT_POS);
+        //servoTwo.setPosition(SERVO_INIT_POS);
+
+        //Define a Color Sensor
+        //Used https://ftc-tricks.com/overview-color-sensor/ to initialize and use Color Sensor
+        //colorSensor = hardwareMap.get(ColorSensor.class, "Lego Detector");
+
+        //Define Gyro Sensor
+        //gyroSensor = hardwareMap.get(GyroSensor.class, "Gyro Sensor");
+
+        //Define Distance Sensor
+        //distanceSensor = hardwareMap.get(DistanceSensor.class, "Distance Sensor");
     }
 }

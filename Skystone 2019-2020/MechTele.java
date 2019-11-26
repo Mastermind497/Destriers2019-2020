@@ -29,17 +29,20 @@ public class MechTele extends OpMode {
     public static final double SERVO_INIT_POS = 0.5;//This is the initial position of a servo and what you will send it back to
     private ElapsedTime runtime = new ElapsedTime();
 
-    RobotHardware Robot = new RobotHardware();
+    private DcMotor frontLeftMotor;
+    private DcMotor backLeftMotor;
+    private DcMotor frontRightMotor;
+    private DcMotor backRightMotor;
+
+
+    RobotGeneral Robot = new RobotGeneral(frontRightMotor, frontLeftMotor, backRightMotor,backLeftMotor);
 
     //Runs while init is pressed and before play
     public void init() {
         Robot.init(hardwareMap);
         telemetry.addData("Status", "TeleOp has been Initialized");
 
-        Robot.frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Robot.frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Robot.backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Robot.backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Robot.setMotorModeWithout();
 
         //Robot.clawServo.setPosition(SERVO_INIT_POS);
     }
@@ -109,42 +112,14 @@ public class MechTele extends OpMode {
 
 
         if (Math.abs(G1leftStickX) > 0.1 || Math.abs(G1leftStickY) > 0.1) {
-            double[] power = Driving(G1leftStickX, G1leftStickY);
-            /*
-            double FLBR = Mech.FLBR(G1leftStickX, G1leftStickY);
-            double FRBL = Mech.FRBL(G1leftStickX, G1leftStickY);
-             */
-            double FLBR = power[0];
-            double FRBL = power[1];
-            Robot.frontLeftMotor.setPower(FLBR);
-            Robot.backRightMotor.setPower(FLBR);
-            Robot.frontRightMotor.setPower(FRBL);
-            Robot.backLeftMotor.setPower(FRBL);
-            telemetry.addData("Data FLBR", Double.toString(FLBR) + "/n");
-            telemetry.addData("Data FRBL", Double.toString(FRBL) + "/n");
+            Robot.move(G1leftStickX,G1leftStickY);
         } else if (G1rightStickX > 0.2) {
-            double[] turn = Turning(1);
-            double left = turn[0];
-            double right = turn [1];
-            Robot.frontLeftMotor.setPower(left);
-            Robot.backRightMotor.setPower(right);
-            Robot.frontRightMotor.setPower(right);
-            Robot.backLeftMotor.setPower(left);
+            Robot.turn(1,G1rightStickX);
         } else if (G1rightStickX < -0.2) {
-            double[] turn = Turning(-1);
-            double left = turn[0];
-            double right = turn [1];
-            Robot.frontLeftMotor.setPower(left);
-            Robot.backRightMotor.setPower(right);
-            Robot.frontRightMotor.setPower(right);
-            Robot.backLeftMotor.setPower(left);
+            Robot.turn(-1,-G1rightStickX);
         } else {
-            Robot.frontLeftMotor.setPower(0);
-            Robot.backRightMotor.setPower(0);
-            Robot.frontRightMotor.setPower(0);
-            Robot.backLeftMotor.setPower(0);
+            Robot.set(0,0);
         }
-
 
 
 

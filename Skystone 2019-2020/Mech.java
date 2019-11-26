@@ -70,10 +70,10 @@ public class Mech {
     }
 
 
-    public static double[] Turning (int CW)
+    public static double[] Turning (int CW, double power)
     {
-        double leftPower = -CW;
-        double rightPower = CW;
+        double leftPower = -CW * power;
+        double rightPower = CW * power;
         double [] turningPower = {leftPower, rightPower};
         return turningPower;
     }
