@@ -31,10 +31,11 @@ public class RobotGeneral {
 
     //Creates a timer to calculate elapsed time
     ElapsedTime runtime = new ElapsedTime();
+    
+    //Robot Hardwaremap
+    private HardwareMap hardwareMap;
 
     //Constructors to create the Robot
-
-
     public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor, Wheel frontRightWheel, Wheel frontLeftWheel, Wheel backRightWheel, Wheel backLeftWheel, ColorSensor leftColor, ColorSensor rightColor, Servo clawServo) {
         this.frontRightMotor = frontRightMotor;
         this.frontLeftMotor = frontLeftMotor;
@@ -156,19 +157,7 @@ public class RobotGeneral {
         set(leftPower,rightPower,"turn");
     }
 
-
-
-
-
-
-
-
-
-
-
-    public HardwareMap hardwareMap;
-
-
+    //Initializes Robot
     public void init(HardwareMap aHardwareMap) {
         hardwareMap = aHardwareMap;
 
