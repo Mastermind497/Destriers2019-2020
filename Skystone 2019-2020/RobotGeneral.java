@@ -54,6 +54,10 @@ public class RobotGeneral {
         this.frontLeftMotor = frontLeftMotor;
         this.backRightMotor = backRightMotor;
         this.backLeftMotor = backleftMotor;
+        this.frontRightWheel = new Wheel(96);
+        this.frontLeftWheel = new Wheel(96);
+        this.backRightWheel = new Wheel(96);
+        this.backLeftWheel = new Wheel(96);
     }
 
     //Setters for Motor Power
