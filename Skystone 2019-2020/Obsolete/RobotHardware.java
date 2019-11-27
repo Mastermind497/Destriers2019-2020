@@ -1,6 +1,6 @@
 /*
  * The Robot Hardware code for the Destriers
- * Created by Team Member Shourya Bansal, Aryan Bansal, Joshua Faber
+ * Created by Team Member Shourya Bansal with assistance from Joshua Faber
  */
 package org.firstinspires.ftc.teamcode;
 
