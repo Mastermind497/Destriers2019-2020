@@ -1,6 +1,6 @@
 /*
- * The Specific Robot Class for FIRE
- * Created by Shourya Bansal
+ * The Specific Robot Class for Destriers
+ * Created by Shourya Bansal and Joshua Faber
  */
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.*;
