@@ -13,14 +13,16 @@ import com.qualcomm.robotcore.robot.Robot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 
 
 import static org.firstinspires.ftc.teamcode.Mech.Driving;
 /*import static org.firstinspires.ftc.teamcode.Mech.FLBR;
 import static org.firstinspires.ftc.teamcode.Mech.FRBL;*/
 import static org.firstinspires.ftc.teamcode.Mech.Turning;
-import static org.firstinspires.ftc.teamcode.RobotHardware.*;
+import static org.firstinspires.ftc.teamcode.RobotGeneral.*;
 
 @TeleOp(name = "MechTele", group = "TeleOp")
 
