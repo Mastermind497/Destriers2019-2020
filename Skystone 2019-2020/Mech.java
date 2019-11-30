@@ -12,7 +12,7 @@ import java.lang.Math;
 public class Mech {
 
     /*//find the power for the front right and back left motors
-    public static double FRBL (double x, double y)
+    public static double FRBL(double x, double y)
         {
             double theta;
             try {
@@ -29,9 +29,9 @@ public class Mech {
             }
 
             theta=theta-(Math.PI/4);
-            double power=java.lang.Math.sin(theta);
+            double power=java.lang.Math.sin(theta)*0.8;
 
-            return power
+            return power;
         }
 
 
@@ -53,7 +53,7 @@ public class Mech {
         }
 
         theta=theta-(Math.PI/4);
-        double power=java.lang.Math.cos(theta);
+        double power=java.lang.Math.cos(theta) * 0.8;
 
         return power;
     }*/
@@ -70,10 +70,10 @@ public class Mech {
     }
 
 
-    public static double[] Turning (int CW)
+    public static double[] Turning (int CW, double power)
     {
-        double leftPower = CW;
-        double rightPower = -CW;
+        double leftPower = -CW * power;
+        double rightPower = CW * power;
         double [] turningPower = {leftPower, rightPower};
         return turningPower;
     }
