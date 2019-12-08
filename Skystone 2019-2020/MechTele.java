@@ -9,6 +9,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robot.Robot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -35,9 +36,10 @@ public class MechTele extends OpMode {
     private DcMotor backLeftMotor;
     private DcMotor frontRightMotor;
     private DcMotor backRightMotor;
+    private Servo clawServo;
+    private Servo clampServo;
 
-
-    RobotGeneral Robot = new RobotGeneral(frontRightMotor, frontLeftMotor, backRightMotor,backLeftMotor);
+    RobotGeneral Robot = new RobotGeneral(frontRightMotor, frontLeftMotor, backRightMotor,backLeftMotor, clawServo, clampServo);
 
     //Runs while init is pressed and before play
     public void init() {
@@ -122,6 +124,17 @@ public class MechTele extends OpMode {
         } else {
             Robot.set(0,0);
         }
+
+        if (G1a) {
+            Robot.setClawServo(1);
+        }
+        if (G1b) {
+            Robot.setClawServo(0);
+        }
+
+
+
+
 
 
 

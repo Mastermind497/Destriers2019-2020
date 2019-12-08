@@ -20,9 +20,9 @@ import static org.firstinspires.ftc.teamcode.Mech.FR BL;*/
 import static org.firstinspires.ftc.teamcode.Mech.Turning;
 import static org.firstinspires.ftc.teamcode.RobotGeneral.*;
 
-@Autonomous(name="MechAut", group="Auton")
+@Autonomous(name="AutSkystone", group="Auton")
 
-public class MechAut extends LinearOpMode {
+public class AutSkystone extends LinearOpMode {
 
     /* Declare OpMode members. */
     //public static final double SERVO_INIT_POS = 0.5;//This is the initial position of a servo and what you will send it back to
@@ -49,10 +49,10 @@ public class MechAut extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-
         runtime.reset();
+
         while (opModeIsActive() && (runtime.seconds() < 3)) {
-            Robot.set(-0.35, -0.35);
+            Robot.set(0.35, 0.35);
         }
         runtime.reset();
 
@@ -64,8 +64,8 @@ public class MechAut extends LinearOpMode {
         runtime.reset();
 
 
-        while (opModeIsActive() && (runtime.seconds() < 7)) {
-            Robot.set(0.7, 0.7);
+        while (opModeIsActive() && (runtime.seconds() < 4)) {
+            Robot.set(-0.35, -0.35);
         }
         runtime.reset();
 
@@ -85,9 +85,9 @@ public class MechAut extends LinearOpMode {
             telemetry.addData("Green:",Robot.getRightColorGreen());
             telemetry.addData("Red:", Robot.getRightColorRed());
             telemetry.update();*/
-        }
-
     }
+
+}
 
 
 

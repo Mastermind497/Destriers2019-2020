@@ -6,6 +6,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 public class RobotGeneral {
     //Creates DcMotors
     private DcMotor frontRightMotor;
@@ -22,9 +24,13 @@ public class RobotGeneral {
     //Creates Sensor to Direct
     private ColorSensor leftColor;
     private ColorSensor rightColor;
+    private ColorSensor frontColor;
+    private DistanceSensor distanceSensor;
+
 
     //Creates Servos which are being used
     private Servo clawServo;
+    private Servo clampServo;
 
     //Creates an array to store the robot's position after every movement
     double[] position = new double[2];
@@ -60,6 +66,42 @@ public class RobotGeneral {
         this.backRightWheel = new Wheel(96);
         this.backLeftWheel = new Wheel(96);
     }
+
+
+    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor, Servo clawServo, Servo clampServo) {
+        this.frontRightMotor = frontRightMotor;
+        this.frontLeftMotor = frontLeftMotor;
+        this.backRightMotor = backRightMotor;
+        this.backLeftMotor = backleftMotor;
+        this.frontRightWheel = new Wheel(96);
+        this.frontLeftWheel = new Wheel(96);
+        this.backRightWheel = new Wheel(96);
+        this.backLeftWheel = new Wheel(96);
+        this.clawServo = clawServo;
+        this.clampServo = clampServo;
+    }
+
+    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor, Servo clawServo, Servo clampServo, ColorSensor frontColor, DistanceSensor distanceSensor) {
+        this.frontRightMotor = frontRightMotor;
+        this.frontLeftMotor = frontLeftMotor;
+        this.backRightMotor = backRightMotor;
+        this.backLeftMotor = backleftMotor;
+        this.frontRightWheel = new Wheel(96);
+        this.frontLeftWheel = new Wheel(96);
+        this.backRightWheel = new Wheel(96);
+        this.backLeftWheel = new Wheel(96);
+        this.clawServo = clawServo;
+        this.clampServo = clampServo;
+        this.frontColor = frontColor;
+        this.distanceSensor = distanceSensor;
+    }
+
+
+
+
+
+
+
 
     //Setters for Motor Power
     public void setMotorPower(DcMotor motor, double power) {
@@ -121,7 +163,7 @@ public class RobotGeneral {
 
     }
 
-    public void set (double FLBR, double FRBL)
+    public void set (double FLBR, double FRBL) //for moving
     {
         frontLeftMotor.setPower(FLBR);
         backRightMotor.setPower(FLBR);
@@ -130,7 +172,7 @@ public class RobotGeneral {
     }
 
 
-    public void set (double left, double right, String larry)
+    public void set (double left, double right, String larry) //for turning
     {
         frontLeftMotor.setPower(left);
         frontRightMotor.setPower(right);
@@ -139,6 +181,33 @@ public class RobotGeneral {
     }
 
 
+    public void setRightColor (boolean on) {
+        rightColor.enableLed(on);
+    }
+    public double getRightColorGreen () {
+        return rightColor.green();
+    }
+    public double getRightColorRed ()  {
+        return rightColor.red();
+    }
+
+    public void setFrontColor (boolean on) {frontColor.enableLed(on);}
+    public double getFrontColorGreen() {return frontColor.green();}
+    public double getFrontColorRed() {return frontColor.red();}
+    public double getFrontColorBlue() {return frontColor.blue();}
+    public double getFrontColorAlpha() {return frontColor.alpha();}
+
+
+    public double getDistance() {return distanceSensor.getDistance(DistanceUnit.CM);}
+
+
+
+
+    public void setClawServo (double position)
+    {
+        clawServo.setPosition(position);
+    }
+    public void setClampServo (double position) {clampServo.setPosition(position);}
 
     public double[] Turning (int CW, double power)
     {
@@ -199,19 +268,25 @@ public class RobotGeneral {
         //clawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //Define and Initialize Servos
-        //clawServo = hardwareMap.get(Servo.class, "Claw Servo");
+        clawServo = hardwareMap.get(Servo.class, "Claw Servo");
         //servoTwo = hardwareMap.get(Servo.class, "<Servo Two Name>");
-        //clawServo.setPosition(SERVO_INIT_POS);
+        clawServo.setPosition(0);
+        clampServo = hardwareMap.get(Servo.class, "Clamp Servo");
+        clampServo.setPosition(0);
         //servoTwo.setPosition(SERVO_INIT_POS);
 
         //Define a Color Sensor
         //Used https://ftc-tricks.com/overview-color-sensor/ to initialize and use Color Sensor
         //colorSensor = hardwareMap.get(ColorSensor.class, "Lego Detector");
+        //rightColor = hardwareMap.get(ColorSensor.class, "Right Color");
+        frontColor = hardwareMap.get(ColorSensor.class, "Front Color");
+        frontColor.enableLed(false);
+
 
         //Define Gyro Sensor
         //gyroSensor = hardwareMap.get(GyroSensor.class, "Gyro Sensor");
 
         //Define Distance Sensor
-        //distanceSensor = hardwareMap.get(DistanceSensor.class, "Distance Sensor");
+        distanceSensor = hardwareMap.get(DistanceSensor.class, "Distance Sensor");
     }
 }
