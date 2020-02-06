@@ -15,9 +15,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /*import static org.firstinspires.ftc.teamcode.Mech.FLBR;
 import static org.firstinspires.ftc.teamcode.Mech.FR BL;*/
 
-@Autonomous(name="MechAut", group="Auton")
+@Autonomous(name="BasicAutRight", group="Auton")
 
-public class MechAut extends LinearOpMode {
+public class basicautright extends LinearOpMode {
 
     /* Declare OpMode members. */
     //public static final double SERVO_INIT_POS = 0.5;//This is the initial position of a servo and what you will send it back to
@@ -29,6 +29,7 @@ public class MechAut extends LinearOpMode {
     private DcMotor backRightMotor;
     private Servo clawServo;
     private Servo clampServo;
+    //private ColorSensor rightColor;
     private RobotGeneral Robot = new RobotGeneral(frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, clawServo, clampServo);
 
 
@@ -45,23 +46,16 @@ public class MechAut extends LinearOpMode {
 
 
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 3)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.5)) {
             Robot.setMove(-0.35, -0.35);
         }
+
         runtime.reset();
 
-
-        while (opModeIsActive() && runtime.seconds()<1){
-            Robot.setMove(0,0);
-            Robot.setClampServo(1);
+        while (opModeIsActive() && runtime.seconds()<3){
+            Robot.move(0.35, 0);
         }
-        runtime.reset();
 
-
-        while (opModeIsActive() && (runtime.seconds() < 10)) {
-            Robot.setMove(0.8, 0.8);
-        }
-        runtime.reset();
 
 
         while (opModeIsActive()) {
@@ -80,9 +74,9 @@ public class MechAut extends LinearOpMode {
             telemetry.addData("Green:",Robot.getRightColorGreen());
             telemetry.addData("Red:", Robot.getRightColorRed());
             telemetry.update();*/
-        }
-
     }
+
+}
 
 
 

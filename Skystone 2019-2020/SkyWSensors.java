@@ -6,25 +6,17 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 
-import static org.firstinspires.ftc.teamcode.Mech.Driving;
 /*import static org.firstinspires.ftc.teamcode.Mech.FLBR;
 import static org.firstinspires.ftc.teamcode.Mech.FR BL;*/
-import static org.firstinspires.ftc.teamcode.Mech.Turning;
-import static org.firstinspires.ftc.teamcode.RobotGeneral.*;
 
 @Autonomous(name="SkyWSensors", group="Auton")
 
@@ -58,14 +50,14 @@ public class SkyWSensors extends LinearOpMode {
 
 
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2) && Robot.getDistance()>12) {
-            Robot.set(0.35, 0.35);
+        while (opModeIsActive() && (runtime.seconds() < 1.5) && Robot.getDistance()>12) {
+            Robot.setMove(0.35, 0.35);
         }
         runtime.reset();
 
 
         while (opModeIsActive() && runtime.seconds()<1){
-            Robot.set(0,0);
+            Robot.setMove(0,0);
         }
         runtime.reset();
 
@@ -84,14 +76,14 @@ public class SkyWSensors extends LinearOpMode {
         runtime.reset();
 
         while (opModeIsActive() && runtime.seconds()<1){
-            Robot.set(0,0);
+            Robot.setMove(0,0);
             Robot.setClawServo(1);
         }
         runtime.reset();
 
 
         while (opModeIsActive() && (runtime.seconds() < 1)) {
-            Robot.set(-0.35, -0.35);
+            Robot.setMove(-0.35, -0.35);
         }
         runtime.reset();
 
@@ -104,7 +96,7 @@ public class SkyWSensors extends LinearOpMode {
 
         runtime.reset();
         while (opModeIsActive()) {
-            Robot.set(0, 0);
+            Robot.setMove(0, 0);
         }
 
 
@@ -117,7 +109,7 @@ public class SkyWSensors extends LinearOpMode {
             Robot.move(0.8,0);
         }
         while (opModeIsActive()) {
-            Robot.set(0, 0);
+            Robot.setMove(0, 0);
             telemetry.addData("Green:",Robot.getRightColorGreen());
             telemetry.addData("Red:", Robot.getRightColorRed());
             telemetry.update();*/

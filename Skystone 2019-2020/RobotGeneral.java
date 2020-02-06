@@ -3,6 +3,7 @@
  * Created by Shourya Bansal and Joshua Faber
  */
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -14,6 +15,9 @@ public class RobotGeneral {
     private DcMotor frontLeftMotor;
     private DcMotor backRightMotor;
     private DcMotor backLeftMotor;
+
+
+    private DcMotor pulleyMotor;
 
     //Creates Corresponding Wheels
     private Wheel frontRightWheel;
@@ -41,8 +45,36 @@ public class RobotGeneral {
     //Robot Hardwaremap
     private HardwareMap hardwareMap;
 
+    private LinearOpMode linearOpMode;
+
+
+
+
+
+
+
+
     //Constructors to create the Robot
-    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor, Wheel frontRightWheel, Wheel frontLeftWheel, Wheel backRightWheel, Wheel backLeftWheel, ColorSensor leftColor, ColorSensor rightColor, Servo clawServo) {
+    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor, Wheel frontRightWheel,
+                        Wheel frontLeftWheel, Wheel backRightWheel, Wheel backLeftWheel, ColorSensor leftColor, ColorSensor rightColor,
+                        Servo clawServo, LinearOpMode linearOpMode) {
+        this.frontRightMotor = frontRightMotor;
+        this.frontLeftMotor = frontLeftMotor;
+        this.backRightMotor = backRightMotor;
+        this.backLeftMotor = backleftMotor;
+        this.frontRightWheel = frontRightWheel;
+        this.frontLeftWheel = frontLeftWheel;
+        this.backRightWheel = backRightWheel;
+        this.backLeftWheel = backLeftWheel;
+        this.leftColor = leftColor;
+        this.rightColor = rightColor;
+        this.clawServo = clawServo;
+        this.linearOpMode = linearOpMode;
+    }
+
+    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor, Wheel frontRightWheel,
+                        Wheel frontLeftWheel, Wheel backRightWheel, Wheel backLeftWheel, ColorSensor leftColor, ColorSensor rightColor,
+                        Servo clawServo) {
         this.frontRightMotor = frontRightMotor;
         this.frontLeftMotor = frontLeftMotor;
         this.backRightMotor = backRightMotor;
@@ -67,8 +99,25 @@ public class RobotGeneral {
         this.backLeftWheel = new Wheel(96);
     }
 
+    //THIS IS THE ONE THAT IS ACTUALLY USED
+    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor,
+                        DcMotor pulleyMotor, Servo clawServo, Servo clampServo, LinearOpMode linearOpMode) {
+        this.frontRightMotor = frontRightMotor;
+        this.frontLeftMotor = frontLeftMotor;
+        this.backRightMotor = backRightMotor;
+        this.backLeftMotor = backleftMotor;
+        this.frontRightWheel = new Wheel(96);
+        this.frontLeftWheel = new Wheel(96);
+        this.backRightWheel = new Wheel(96);
+        this.backLeftWheel = new Wheel(96);
+        this.pulleyMotor = pulleyMotor;
+        this.clawServo = clawServo;
+        this.clampServo = clampServo;
+        this.linearOpMode = linearOpMode;
+    }
 
-    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor, Servo clawServo, Servo clampServo) {
+    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor,
+                        Servo clawServo, Servo clampServo) {
         this.frontRightMotor = frontRightMotor;
         this.frontLeftMotor = frontLeftMotor;
         this.backRightMotor = backRightMotor;
@@ -81,7 +130,8 @@ public class RobotGeneral {
         this.clampServo = clampServo;
     }
 
-    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor, Servo clawServo, Servo clampServo, ColorSensor frontColor, DistanceSensor distanceSensor) {
+    public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor,
+                        Servo clawServo, Servo clampServo, ColorSensor frontColor, DistanceSensor distanceSensor) {
         this.frontRightMotor = frontRightMotor;
         this.frontLeftMotor = frontLeftMotor;
         this.backRightMotor = backRightMotor;
@@ -103,16 +153,9 @@ public class RobotGeneral {
 
 
 
-    //Setters for Motor Power
-    public void setMotorPower(DcMotor motor, double power) {
-        motor.setPower(power);
-    }
-    public void setForwardPower(double power) {
-        frontRightMotor.setPower(power);
-        frontLeftMotor.setPower(power);
-        backRightMotor.setPower(power);
-        backLeftMotor.setPower(power);
-    }
+
+
+
 
     public void setMotorModeWithout() {
         frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -140,45 +183,133 @@ public class RobotGeneral {
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public double[] Driving (double x, double y)
-    {
-        double firstBasis = x + y;
-        double secondBasis = y - x;
-        firstBasis = firstBasis/java.lang.Math.sqrt(2);
-        secondBasis = secondBasis/java.lang.Math.sqrt(2);
-        double [] drivingPower = {firstBasis, secondBasis};
-        return drivingPower;
-    }
 
 
 
 
+
+
+
+
+    //TeleOp movement
     public void move (double x, double y)
     {
-        double firstBasis = x + y;
-        double secondBasis = y - x;
-        firstBasis = firstBasis/java.lang.Math.sqrt(2);
-        secondBasis = secondBasis/java.lang.Math.sqrt(2);
-        set(firstBasis, secondBasis);
+        while (linearOpMode.opModeIsActive()) {
+            double firstBasis = x + y;
+            double secondBasis = y - x;
+            firstBasis = firstBasis / java.lang.Math.sqrt(2);
+            secondBasis = secondBasis / java.lang.Math.sqrt(2);
+            setMove(firstBasis, secondBasis);
+        }
 
     }
 
-    public void set (double FLBR, double FRBL) //for moving
+    public void setMove(double FLBR, double FRBL) //for moving
     {
-        frontLeftMotor.setPower(FLBR);
-        backRightMotor.setPower(FLBR);
-        frontRightMotor.setPower(FRBL);
-        backLeftMotor.setPower(FRBL);
+        while (linearOpMode.opModeIsActive()) {
+            frontLeftMotor.setPower(FLBR);
+            backRightMotor.setPower(FLBR);
+            frontRightMotor.setPower(FRBL);
+            backLeftMotor.setPower(FRBL);
+        }
     }
 
-
-    public void set (double left, double right, String larry) //for turning
+    public void turn (int CW, double power)
     {
-        frontLeftMotor.setPower(left);
-        frontRightMotor.setPower(right);
-        backLeftMotor.setPower(left);
-        backRightMotor.setPower(right);
+        while (linearOpMode.opModeIsActive()) {
+            double leftPower = CW * power;
+            double rightPower = -CW * power;
+            setTurn(leftPower, rightPower);
+        }
     }
+
+
+    public void setTurn(double left, double right) //for turning
+    {
+        while (linearOpMode.opModeIsActive()) {
+            frontLeftMotor.setPower(left);
+            frontRightMotor.setPower(right);
+            backLeftMotor.setPower(left);
+            backRightMotor.setPower(right);
+        }
+    }
+
+
+
+
+
+    //auton movement
+
+
+    private double circumference = 2*Math.PI*2;
+    private int ticks = 1680;
+
+
+
+    public void moveAuton (double x, double y)
+    {
+        while(linearOpMode.opModeIsActive()) {
+            double distance = java.lang.Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+            distance /= circumference;
+            distance *= ticks;
+            double firstBasis = x + y;
+            double secondBasis = y - x;
+            firstBasis = firstBasis / java.lang.Math.sqrt(2);
+            secondBasis = secondBasis / java.lang.Math.sqrt(2);
+            setAuton((int) Math.round(firstBasis * distance), (int) Math.round(secondBasis * distance));
+        }
+
+    }
+
+    public void setAuton (int FLBR, int FRBL)
+    {
+        while(linearOpMode.opModeIsActive()) {
+            frontLeftMotor.setTargetPosition(FLBR);
+            frontRightMotor.setTargetPosition(FRBL);
+            backLeftMotor.setTargetPosition(FRBL);
+            backRightMotor.setTargetPosition(FLBR);
+            setMotorModeToPosition();
+            stopAndResetEncoders();
+            while(backLeftMotor.isBusy()){
+                //waiting
+            }
+            while(backRightMotor.isBusy()){
+                //waiting
+            }
+            while(frontRightMotor.isBusy()){
+                //waiting
+            }
+            while(frontLeftMotor.isBusy()){
+                //waiting
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+    public void movePulley (double direction){
+        direction *= 0.3;
+        pulleyMotor.setPower(direction);
+    }
+
+
+
+    public void setClawServo (double position)
+    {
+        clawServo.setPosition(position);
+        runtime.reset();
+        while(runtime.seconds()<1){
+            setMove(0,0);
+        }
+    }
+    public void setClampServo (double position) {clampServo.setPosition(position);}
+
+
 
 
     public void setRightColor (boolean on) {
@@ -203,28 +334,13 @@ public class RobotGeneral {
 
 
 
-    public void setClawServo (double position)
-    {
-        clawServo.setPosition(position);
-    }
-    public void setClampServo (double position) {clampServo.setPosition(position);}
-
-    public double[] Turning (int CW, double power)
-    {
-        double leftPower = -CW * power;
-        double rightPower = CW * power;
-        double [] turningPower = {leftPower, rightPower};
-        return turningPower;
-    }
 
 
 
-    public void turn (int CW, double power)
-    {
-        double leftPower = -CW * power;
-        double rightPower = CW * power;
-        set(leftPower,rightPower,"turn");
-    }
+
+
+
+
 
     //Initializes Robot
     public void init(HardwareMap aHardwareMap) {
@@ -235,6 +351,7 @@ public class RobotGeneral {
         frontRightMotor = hardwareMap.get(DcMotor.class, "Front Right Motor");
         backLeftMotor = hardwareMap.get(DcMotor.class, "Back Left Motor");
         backRightMotor = hardwareMap.get(DcMotor.class, "Back Right Motor");
+        pulleyMotor = hardwareMap.get(DcMotor.class, "Pulley Motor");
         //clawMotor = hardwareMap.get(DcMotor.class, "Claw Motor");
 
         //Set Directions
@@ -242,6 +359,7 @@ public class RobotGeneral {
         frontRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         backLeftMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         backRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        pulleyMotor.setDirection(DcMotor.Direction.FORWARD);
 
         //clawMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
 
@@ -251,13 +369,15 @@ public class RobotGeneral {
         frontRightMotor.setPower(0);
         backLeftMotor.setPower(0);
         backRightMotor.setPower(0);
+        pulleyMotor.setPower(0);
         //clawMotor.setPower(0);
 
         //Run with Encoders. If we don't use Encoders, change "RUN_USING_ENCODERS" to "RUN_WITHOUT_ENCODERS"
-        frontLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pulleyMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //Brakes the Motors when the power is at Zero
@@ -265,6 +385,7 @@ public class RobotGeneral {
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        pulleyMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //clawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //Define and Initialize Servos

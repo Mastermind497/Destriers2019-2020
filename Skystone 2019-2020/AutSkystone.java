@@ -8,17 +8,13 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import static org.firstinspires.ftc.teamcode.Mech.Driving;
+
 /*import static org.firstinspires.ftc.teamcode.Mech.FLBR;
 import static org.firstinspires.ftc.teamcode.Mech.FR BL;*/
-import static org.firstinspires.ftc.teamcode.Mech.Turning;
-import static org.firstinspires.ftc.teamcode.RobotGeneral.*;
 
 @Autonomous(name="AutSkystone", group="Auton")
 
@@ -52,26 +48,26 @@ public class AutSkystone extends LinearOpMode {
         runtime.reset();
 
         while (opModeIsActive() && (runtime.seconds() < 3)) {
-            Robot.set(0.35, 0.35);
+            Robot.setMove(0.35, 0.35);
         }
         runtime.reset();
 
 
         while (opModeIsActive() && runtime.seconds()<1){
-            Robot.set(0,0);
+            Robot.setMove(0,0);
             Robot.setClampServo(1);
         }
         runtime.reset();
 
 
         while (opModeIsActive() && (runtime.seconds() < 4)) {
-            Robot.set(-0.35, -0.35);
+            Robot.setMove(-0.35, -0.35);
         }
         runtime.reset();
 
 
         while (opModeIsActive()) {
-            Robot.set(0, 0);
+            Robot.setMove(0, 0);
         }
         /*Robot.setRightColor(true);
         double threshold = 150;
@@ -81,7 +77,7 @@ public class AutSkystone extends LinearOpMode {
             Robot.move(0.8,0);
         }
         while (opModeIsActive()) {
-            Robot.set(0, 0);
+            Robot.setMove(0, 0);
             telemetry.addData("Green:",Robot.getRightColorGreen());
             telemetry.addData("Red:", Robot.getRightColorRed());
             telemetry.update();*/

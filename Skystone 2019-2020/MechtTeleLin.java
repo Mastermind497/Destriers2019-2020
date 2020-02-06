@@ -51,7 +51,6 @@ public class MechtTeleLin extends LinearOpMode {
         Robot.init(hardwareMap);
         telemetry.addData("Status", "TeleOp has been Initialized");
 
-        Robot.setMotorModeWithout();
         waitForStart();
         //The Joystick:
         //Gamepad 1
@@ -111,7 +110,7 @@ public class MechtTeleLin extends LinearOpMode {
         } else if (G1rightStickX < -0.2) {
             Robot.turn(-1,-G1rightStickX);
         } else {
-            Robot.set(0,0);
+            Robot.setMove(0,0);
         }*/
 
             if (G1a) {
