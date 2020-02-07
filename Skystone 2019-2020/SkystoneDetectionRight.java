@@ -52,7 +52,7 @@ public class SkystoneDetectionRight extends LinearOpMode {
     private Servo clawServo;
     //private Servo clampServo;
     //private DcMotor pulleyMotor;
-    private RobotGeneral Robot = new RobotGeneral(frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, clawServo, this);
+    private RobotGeneral Robot = new RobotGeneral(frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, clawServo, this, this.telemetry);
 
     //0 means skystone, 1 means yellow stone
     //-1 for debug, but we can keep it like this because if it works, it should change to either 0 or 255
@@ -105,14 +105,21 @@ public class SkystoneDetectionRight extends LinearOpMode {
             telemetry.addData("Width", cols);
 
             telemetry.update();
-            Robot.moveAuton(12,8);
             sleep(3000);
+            telemetry.addData("done", "waiting");
+            telemetry.update();
 
 
+            Robot.moveAuton(0,-24);
+            Robot.moveAuton(-24,0);
+            Robot.moveAuton(24,24);
+            Robot.moveAuton(-12,-24);
+            Robot.move(0,0);
+            /*
             //case where the rightmost stone is a skystone
             if(valRight<50 && valMid>200 && valLeft>200){
                 phoneCam.closeCameraDevice();
-                Robot.moveAuton(width-4,48-length);
+                Robot.moveAuton(width-4,-48+length);
                 Robot.setClawServo(1);
                 //sleep
                 Robot.moveAuton(4+24+12,-12);
@@ -170,7 +177,7 @@ public class SkystoneDetectionRight extends LinearOpMode {
                 Robot.moveAuton(24+width,0);
                 Robot.move(0,0);
             }
-
+            */
         //}
     }
 

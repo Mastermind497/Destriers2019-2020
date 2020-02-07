@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class RobotGeneral {
@@ -15,6 +16,8 @@ public class RobotGeneral {
     private DcMotor frontLeftMotor;
     private DcMotor backRightMotor;
     private DcMotor backLeftMotor;
+
+    private Telemetry telemetry;
 
 
     //private DcMotor pulleyMotor;
@@ -53,7 +56,7 @@ public class RobotGeneral {
 
     //THIS IS THE ONE THAT IS ACTUALLY USED
     public RobotGeneral(DcMotor frontRightMotor, DcMotor frontLeftMotor, DcMotor backRightMotor, DcMotor backleftMotor,
-                        Servo clawServo, LinearOpMode linearOpMode) {
+                        Servo clawServo, LinearOpMode linearOpMode, Telemetry telemetry) {
         this.frontRightMotor = frontRightMotor;
         this.frontLeftMotor = frontLeftMotor;
         this.backRightMotor = backRightMotor;
@@ -61,6 +64,7 @@ public class RobotGeneral {
         //this.pulleyMotor = pulleyMotor;
         this.clawServo = clawServo;
         this.linearOpMode = linearOpMode;
+        this.telemetry = telemetry;
     }
 
 
@@ -116,8 +120,8 @@ public class RobotGeneral {
         //while (linearOpMode.opModeIsActive()) {
             double firstBasis = x + y;
             double secondBasis = y - x;
-            firstBasis = firstBasis / java.lang.Math.sqrt(2);
-            secondBasis = secondBasis / java.lang.Math.sqrt(2);
+            firstBasis = firstBasis / Math.sqrt(2);
+            secondBasis = secondBasis / Math.sqrt(2);
             setMove(firstBasis, secondBasis);
         //}
 
@@ -168,13 +172,13 @@ public class RobotGeneral {
     public void moveAuton (double x, double y)
     {
         //while(linearOpMode.opModeIsActive()) {
-            double distance = java.lang.Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+            double distance = Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
             distance /= circumference;
             distance *= ticks;
             double firstBasis = x + y;
             double secondBasis = y - x;
-            firstBasis = firstBasis / java.lang.Math.sqrt(2);
-            secondBasis = secondBasis / java.lang.Math.sqrt(2);
+            firstBasis = firstBasis / Math.sqrt(2);
+            secondBasis = secondBasis / Math.sqrt(2);
             setAuton((int) Math.round(firstBasis * distance), (int) Math.round(secondBasis * distance));
         //}
 
@@ -183,16 +187,21 @@ public class RobotGeneral {
     public void setAuton (int FLBR, int FRBL)
     {
         //while(linearOpMode.opModeIsActive()) {
+
             frontLeftMotor.setTargetPosition(FLBR);
             frontRightMotor.setTargetPosition(FRBL);
             backLeftMotor.setTargetPosition(FRBL);
             backRightMotor.setTargetPosition(FLBR);
+            frontLeftMotor.setPower(0.8);
+            frontRightMotor.setPower(0.8);
+            backLeftMotor.setPower(0.8);
+            backRightMotor.setPower(0.8);
             setMotorModeToPosition();
-            stopAndResetEncoders();
-            while((backLeftMotor.isBusy() || backRightMotor.isBusy() || frontRightMotor.isBusy() || frontLeftMotor.isBusy()) 
+            while((backLeftMotor.isBusy() || backRightMotor.isBusy() || frontRightMotor.isBusy() || frontLeftMotor.isBusy())
                   && linearOpMode.opModeIsActive()){
                 //waiting
             }
+            stopAndResetEncoders();
         //}
     }
 

@@ -36,7 +36,7 @@ public class SkystoneMecanumTeleOp extends LinearOpMode {
     //private Servo clampServo;
     //private DcMotor pulleyMotor;
 
-    RobotGeneral Robot = new RobotGeneral(frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, clawServo, this);
+    RobotGeneral Robot = new RobotGeneral(frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, clawServo, this, this.telemetry);
 
     //Runs while init is pressed and before play
     /*public void init() {
