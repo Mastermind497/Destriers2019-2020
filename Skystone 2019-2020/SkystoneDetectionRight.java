@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Hardware;
+import com.qualcomm.robotcore.hardware.*;
+
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -28,10 +31,9 @@ import java.util.List;
 
 
 //TODO test - today
-//TODO 5 more autons
+//TODO 3 more autons
 //TODO add pulley to tele-op (set direction might be wrong, put into config) - today *hopefully*
 //TODO test - tmr
-//TODO delete files
 //TODO clean robot and prep for inspection - tomorrow/sat
 //TODO logbook - printed by sharan on friday
 //TODO interview prep - talk to jord today
@@ -48,9 +50,9 @@ public class SkystoneDetectionRight extends LinearOpMode {
     private DcMotor frontRightMotor;
     private DcMotor backRightMotor;
     private Servo clawServo;
-    private Servo clampServo;
-    private DcMotor pulleyMotor;
-    private RobotGeneral Robot = new RobotGeneral(frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, pulleyMotor, clawServo, clampServo, this);
+    //private Servo clampServo;
+    //private DcMotor pulleyMotor;
+    private RobotGeneral Robot = new RobotGeneral(frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, clawServo, this);
 
     //0 means skystone, 1 means yellow stone
     //-1 for debug, but we can keep it like this because if it works, it should change to either 0 or 255
@@ -97,13 +99,13 @@ public class SkystoneDetectionRight extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
-        while (opModeIsActive()) {
+        //while (opModeIsActive()) {
             telemetry.addData("Values", valLeft+"   "+valMid+"   "+valRight);
             telemetry.addData("Height", rows);
             telemetry.addData("Width", cols);
 
             telemetry.update();
-            runtime.reset();
+            Robot.moveAuton(12,8);
             sleep(3000);
 
 
@@ -169,7 +171,7 @@ public class SkystoneDetectionRight extends LinearOpMode {
                 Robot.move(0,0);
             }
 
-        }
+        //}
     }
 
     //detection pipeline

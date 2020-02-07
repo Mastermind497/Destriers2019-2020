@@ -13,6 +13,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.*;
+
 
 
 
@@ -31,10 +33,10 @@ public class SkystoneMecanumTeleOp extends LinearOpMode {
     private DcMotor frontRightMotor;
     private DcMotor backRightMotor;
     private Servo clawServo;
-    private Servo clampServo;
-    private DcMotor pulleyMotor;
+    //private Servo clampServo;
+    //private DcMotor pulleyMotor;
 
-    RobotGeneral Robot = new RobotGeneral(frontRightMotor, frontLeftMotor, backRightMotor,backLeftMotor, pulleyMotor, clawServo, clampServo, this);
+    RobotGeneral Robot = new RobotGeneral(frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, clawServo, this);
 
     //Runs while init is pressed and before play
     /*public void init() {
@@ -130,13 +132,13 @@ public class SkystoneMecanumTeleOp extends LinearOpMode {
 
 
 
-            if (G1x) {
+           /* if (G1x) {
                 Robot.movePulley(1);
             } else if (G1y) {
                 Robot.movePulley(-1);
             } else {
                 Robot.movePulley(0);
-            }
+            }*/
 
 
         }
