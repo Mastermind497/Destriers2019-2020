@@ -189,16 +189,8 @@ public class RobotGeneral {
             backRightMotor.setTargetPosition(FLBR);
             setMotorModeToPosition();
             stopAndResetEncoders();
-            while(backLeftMotor.isBusy() || linearOpMode.opModeIsActive()){
-                //waiting
-            }
-            while(backRightMotor.isBusy() || linearOpMode.opModeIsActive()){
-                //waiting
-            }
-            while(frontRightMotor.isBusy() || linearOpMode.opModeIsActive()){
-                //waiting
-            }
-            while(frontLeftMotor.isBusy() || linearOpMode.opModeIsActive()){
+            while((backLeftMotor.isBusy() || backRightMotor.isBusy() || frontRightMotor.isBusy() || frontLeftMotor.isBusy()) 
+                  && linearOpMode.opModeIsActive()){
                 //waiting
             }
         //}
@@ -222,7 +214,7 @@ public class RobotGeneral {
     {
         clawServo.setPosition(position);
         runtime.reset();
-        while(runtime.seconds()<1){
+        while(runtime.seconds()<1 && linearOpMode.opModeIsActive()){
             setMove(0,0);
         }
     }
@@ -263,8 +255,6 @@ public class RobotGeneral {
 
     //Initializes Robot
     public void init(HardwareMap hardwareMap) {
-        hardwareMap = hardwareMap;
-
         //Initializing Motors
         frontLeftMotor = hardwareMap.get(DcMotor.class, "Front Left Motor");
         frontRightMotor = hardwareMap.get(DcMotor.class, "Front Right Motor");
